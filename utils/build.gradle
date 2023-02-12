@@ -1,0 +1,33 @@
+plugins {
+    id 'java-library'
+}
+
+group 'ru.cleverteс'
+version = '1.3.5'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+    }
+    from(configurations.runtimeClasspath.files.collect { zipTree(it) })
+}
+
+
+test {
+    useJUnitPlatform()
+}
